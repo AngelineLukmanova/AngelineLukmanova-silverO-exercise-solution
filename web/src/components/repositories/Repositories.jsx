@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RepositoriesList from './RepositoriesList';
 import './Repositories.scss';
+import LanguageBtns from './LanguageBtns';
 
 const expressAPI = process.env.REACT_APP_EXPRESS_API;
 
 function Repositories() {
   const [data, setData] = useState();
   const [languageOptions, setLanguageOptions] = useState();
+  const [displayedLanguage, setDisplayedLanguage] = useState('All');
 
   const compareDates = (date1, date2) => {
     return new Date(date2.created_at) - new Date(date1.created_at);
@@ -43,15 +45,14 @@ function Repositories() {
     <div className="Repositories">
       <h1>Repositories</h1>
       {languageOptions && (
-        <div>
-          {languageOptions.map((option) => (
-            <button id={option} key={option}>
-              {option}
-            </button>
-          ))}
-        </div>
+        <LanguageBtns
+          languageOptions={languageOptions}
+          setDisplayedLanguage={setDisplayedLanguage}
+        />
       )}
-      <RepositoriesList data={data} />
+      {data && (
+        <RepositoriesList data={data} displayedLanguage={displayedLanguage} />
+      )}
     </div>
   );
 }
