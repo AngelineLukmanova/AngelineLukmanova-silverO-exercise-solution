@@ -7,6 +7,7 @@ const expressAPI = process.env.REACT_APP_EXPRESS_API;
 
 function Repositories() {
   const [data, setData] = useState();
+  const [languageOptions, setLanguageOptions] = useState();
 
   const compareDates = (date1, date2) => {
     return new Date(date2.created_at) - new Date(date1.created_at);
@@ -22,14 +23,34 @@ function Repositories() {
       }
     };
 
+    const getLanguageOptions = () => {
+      const options = [];
+      data.map(
+        (repo) =>
+          !options.includes(repo.language) && options.push(repo.language)
+      );
+      setLanguageOptions(options);
+    };
+
     if (!data) {
       getData();
+    } else {
+      getLanguageOptions();
     }
   }, [data]);
 
   return (
     <div className="Repositories">
       <h1>Repositories</h1>
+      {languageOptions && (
+        <div>
+          {languageOptions.map((option) => (
+            <button id={option} key={option}>
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
       <RepositoriesList data={data} />
     </div>
   );
