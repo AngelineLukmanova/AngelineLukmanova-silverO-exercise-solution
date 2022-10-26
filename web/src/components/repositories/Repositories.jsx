@@ -57,6 +57,10 @@ function Repositories() {
         latestCommit: latestCommit.data?.[0],
       }));
     } catch (err) {
+      setOpenedRepo((info) => ({
+        ...info,
+        latestCommit: 'empty',
+      }));
       console.log(`Error! Error message: ${err.message}`);
     }
   };
@@ -72,6 +76,10 @@ function Repositories() {
         readmeFile: readmeFile.data,
       }));
     } catch (err) {
+      setOpenedRepo((info) => ({
+        ...info,
+        readmeFile: 'empty',
+      }));
       console.log(`Error! Error message: ${err.message}`);
     }
   };
@@ -113,12 +121,14 @@ function Repositories() {
               displayedLanguage={displayedLanguage}
               showFullInfo={showFullInfo}
             />
-            {openedRepo && (
-              <DisplayRepoInfo
-                openedRepo={openedRepo}
-                setOpenedRepo={setOpenedRepo}
-              />
-            )}
+            {openedRepo?.id &&
+              openedRepo?.latestCommit &&
+              openedRepo?.readmeFile && (
+                <DisplayRepoInfo
+                  openedRepo={openedRepo}
+                  setOpenedRepo={setOpenedRepo}
+                />
+              )}
           </main>
         </>
       ) : (
