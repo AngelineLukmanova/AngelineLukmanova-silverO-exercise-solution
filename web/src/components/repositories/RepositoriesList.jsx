@@ -1,6 +1,11 @@
 import React from 'react';
 
-function RepositoriesList({ data, displayedLanguage, showFullInfo }) {
+function RepositoriesList({
+  data,
+  displayedLanguage,
+  showFullInfo,
+  openedRepo,
+}) {
   return (
     <div className="Repositories__list">
       {data?.map(
@@ -10,7 +15,9 @@ function RepositoriesList({ data, displayedLanguage, showFullInfo }) {
             <div
               id={repo.id}
               key={repo.id}
-              className="Repositories__list-item"
+              className={`Repositories__list-item 
+              ${openedRepo?.id === repo.id ? 'opened' : ''}
+              `}
               onClick={() => showFullInfo(repo)}
             >
               <span>{`Name: ${repo.name}`}</span>

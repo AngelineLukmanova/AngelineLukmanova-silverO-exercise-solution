@@ -47,6 +47,14 @@
       margin-bottom: 1.2rem;
       padding-right: 1.5rem;
 
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.opened {
+        color: #14506c;
+      }
+
       & span {
         padding-bottom: 0.1rem;
       }
@@ -98,6 +106,7 @@
     text-align: center;
     padding-top: 25%;
   }
+
 }
 
 #Repositories-loader {

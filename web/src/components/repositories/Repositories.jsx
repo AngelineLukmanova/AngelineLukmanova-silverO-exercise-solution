@@ -120,6 +120,7 @@ function Repositories() {
               data={data}
               displayedLanguage={displayedLanguage}
               showFullInfo={showFullInfo}
+              openedRepo={openedRepo}
             />
             {openedRepo?.id &&
               openedRepo?.latestCommit &&
