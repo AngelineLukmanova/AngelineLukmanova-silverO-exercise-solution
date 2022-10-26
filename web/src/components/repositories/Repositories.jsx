@@ -3,6 +3,7 @@ import axios from 'axios';
 import RepositoriesList from './RepositoriesList';
 import './Repositories.scss';
 import LanguageBtns from './LanguageBtns';
+import DisplayRepoInfo from './DisplayRepoInfo';
 
 const expressAPI = process.env.REACT_APP_EXPRESS_API;
 
@@ -11,7 +12,7 @@ function Repositories() {
   const [languageOptions, setLanguageOptions] = useState();
   const [displayedLanguage, setDisplayedLanguage] = useState('All');
   const [openedRepo, setOpenedRepo] = useState(null);
-
+  console.log(openedRepo);
   const compareDates = (date1, date2) => {
     return new Date(date2.created_at) - new Date(date1.created_at);
   };
@@ -61,6 +62,7 @@ function Repositories() {
       const readmeFile = await axios.get(
         `https://raw.githubusercontent.com/${repo.full_name}/master/README.md`
       );
+      console.log(readmeFile);
       setOpenedRepo((info) => ({
         ...info,
         readmeFile: readmeFile.data,
@@ -90,11 +92,19 @@ function Repositories() {
         />
       )}
       {data && (
-        <RepositoriesList
-          data={data}
-          displayedLanguage={displayedLanguage}
-          showFullInfo={showFullInfo}
-        />
+        <main>
+          <RepositoriesList
+            data={data}
+            displayedLanguage={displayedLanguage}
+            showFullInfo={showFullInfo}
+          />
+          {openedRepo && (
+            <DisplayRepoInfo
+              openedRepo={openedRepo}
+              setOpenedRepo={setOpenedRepo}
+            />
+          )}
+        </main>
       )}
     </div>
   );

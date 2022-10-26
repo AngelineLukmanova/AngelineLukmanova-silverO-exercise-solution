@@ -1,9 +1,22 @@
 .Repositories {
+  & main {
+    display: flex;
+  }
+
   &__list {
+
     &-item {
       display: flex;
       flex-direction: column;
       margin-bottom: 1rem;
+    }
+  }
+
+  &__openedRepo {
+
+    & div {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
