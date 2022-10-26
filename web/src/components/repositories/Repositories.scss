@@ -3,6 +3,10 @@
     display: flex;
   }
 
+  &__error {
+    text-align: center;
+  }
+
   &__list {
 
     &-item {
@@ -18,5 +22,39 @@
       display: flex;
       flex-direction: column;
     }
+  }
+
+  &__loader {
+    text-align: center;
+    padding-top: 25%;
+  }
+}
+
+#Repositories-loader {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+
+  border: 3px solid #ff6262;
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
   }
 }

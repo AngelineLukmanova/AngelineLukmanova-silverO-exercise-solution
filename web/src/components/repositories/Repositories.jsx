@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RepositoriesList from './RepositoriesList';
-import './Repositories.scss';
 import LanguageBtns from './LanguageBtns';
 import DisplayRepoInfo from './DisplayRepoInfo';
+import './Repositories.scss';
 
 const expressAPI = process.env.REACT_APP_EXPRESS_API;
 
@@ -12,7 +12,8 @@ function Repositories() {
   const [languageOptions, setLanguageOptions] = useState();
   const [displayedLanguage, setDisplayedLanguage] = useState('All');
   const [openedRepo, setOpenedRepo] = useState(null);
-  console.log(openedRepo);
+  const [error, setError] = useState(null);
+
   const compareDates = (date1, date2) => {
     return new Date(date2.created_at) - new Date(date1.created_at);
   };
@@ -23,6 +24,9 @@ function Repositories() {
         const response = await axios.get(`${expressAPI}/repos`);
         setData(response.data.sort(compareDates));
       } catch (err) {
+        setError(
+          `Error! Error message: ${err.message}. Please try again later!`
+        );
         console.log(`Error! Error message: ${err.message}`);
       }
     };
@@ -62,7 +66,7 @@ function Repositories() {
       const readmeFile = await axios.get(
         `https://raw.githubusercontent.com/${repo.full_name}/master/README.md`
       );
-      console.log(readmeFile);
+
       setOpenedRepo((info) => ({
         ...info,
         readmeFile: readmeFile.data,
@@ -82,29 +86,46 @@ function Repositories() {
     }
   };
 
+  if (error) {
+    return (
+      <div className="Repositories">
+        <div className="Repositories__error"> {error}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="Repositories">
-      <h1>Repositories</h1>
-      {languageOptions && (
-        <LanguageBtns
-          languageOptions={languageOptions}
-          setDisplayedLanguage={setDisplayedLanguage}
-        />
-      )}
-      {data && (
-        <main>
-          <RepositoriesList
-            data={data}
-            displayedLanguage={displayedLanguage}
-            showFullInfo={showFullInfo}
-          />
-          {openedRepo && (
-            <DisplayRepoInfo
-              openedRepo={openedRepo}
-              setOpenedRepo={setOpenedRepo}
+      {data ? (
+        <>
+          <header>
+            <h1>Repositories</h1>
+            {languageOptions && (
+              <LanguageBtns
+                languageOptions={languageOptions}
+                setDisplayedLanguage={setDisplayedLanguage}
+              />
+            )}
+          </header>
+          <main>
+            <RepositoriesList
+              data={data}
+              displayedLanguage={displayedLanguage}
+              showFullInfo={showFullInfo}
             />
-          )}
-        </main>
+            {openedRepo && (
+              <DisplayRepoInfo
+                openedRepo={openedRepo}
+                setOpenedRepo={setOpenedRepo}
+              />
+            )}
+          </main>
+        </>
+      ) : (
+        <div className="Repositories__loader">
+          <div id="Repositories-loader"> </div>
+          <p>Loading...</p>
+        </div>
       )}
     </div>
   );
