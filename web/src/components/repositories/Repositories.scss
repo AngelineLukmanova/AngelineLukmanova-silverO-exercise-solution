@@ -1,27 +1,96 @@
 .Repositories {
-  & main {
-    display: flex;
+  background-color: #f5f5f5;
+  padding: 1.7rem;
+  min-height: 100vh;
+
+  & header {
+    & h1 {
+      margin: 0;
+      padding-bottom: 1.6rem;
+      font-size: 1.6rem;
+    }
   }
 
-  &__error {
-    text-align: center;
+  &__languageBtns {
+    padding-bottom: 1.3rem;
+
+    & button {
+      padding: 0.4rem 2.2rem;
+      margin-right: 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #51bae3;
+      color: #fff;
+      font-size: 1rem;
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0 3px #72a5ca7b;
+        top: 2px;
+      }
+    }
+  }
+
+  & main {
+    display: flex;
+    background-color: white;
+    padding: 1.1rem;
+    border-radius: 20px;
   }
 
   &__list {
+    width: 35%;
 
     &-item {
       display: flex;
       flex-direction: column;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
+
+      & span {
+        padding-bottom: 0.1rem;
+      }
     }
   }
 
   &__openedRepo {
+    width: 65%;
+    background-color: #51bae31d;
+    padding: 1.5rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 
-    & div {
+    &-latestCommit {
       display: flex;
       flex-direction: column;
+
+      & span {
+        padding-bottom: 0.2rem;
+        font-size: 1.1rem;
+      }
     }
+
+    & button {
+      padding: 0.4rem 2.2rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #51bae3;
+      color: #fff;
+      font-size: 1rem;
+      width: 15%;
+      align-self: center;
+      margin: 1.5rem 0;
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0 3px #72a5ca7b;
+        top: 2px;
+      }
+    }
+  }
+
+  &__error {
+    text-align: center;
   }
 
   &__loader {
@@ -40,9 +109,9 @@
     height: 50px;
   }
 
-  border: 3px solid #ff6262;
+  border: 3px solid #43b7ed;
   border-radius: 50%;
-  border-top-color: #fff;
+  border-top-color: #f5f5f5;
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
 }

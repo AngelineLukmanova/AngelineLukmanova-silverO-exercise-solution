@@ -11,7 +11,7 @@ function DisplayRepoInfo({ openedRepo, setOpenedRepo }) {
   }
   return (
     <section className="Repositories__openedRepo">
-      <div>
+      <div className="Repositories__openedRepo-latestCommit">
         <span>{`Date: ${openedRepo.latestCommit?.commit?.author?.date}`}</span>
         <span>{`Author: ${openedRepo.latestCommit?.commit?.author?.name}`}</span>
         <span>{`Message: ${openedRepo.latestCommit?.commit?.message}`}</span>

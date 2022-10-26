@@ -99,7 +99,7 @@ function Repositories() {
       {data ? (
         <>
           <header>
-            <h1>Repositories</h1>
+            <h1>GitHub Repositories</h1>
             {languageOptions && (
               <LanguageBtns
                 languageOptions={languageOptions}
